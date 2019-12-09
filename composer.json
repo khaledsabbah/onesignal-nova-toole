@@ -1,6 +1,10 @@
 {
-    "name": "onesignal/onesignalnotificationhistory",
-    "description": "A Laravel Nova tool.",
+    "name": "reachnetwork/onesignalnotificationhistory",
+    "description": "A Laravel Nova tool used to list all the users that made some events on the sent messages ",
+    "author":{
+        "name":"Khaled Gamal",
+        "email":"khaledgamalsabbah@gmail.com"
+    },
     "keywords": [
         "laravel",
         "nova"
