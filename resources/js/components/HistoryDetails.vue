@@ -23,10 +23,12 @@ export default {
             this.notificationId = this.$route.params.id;
             axios.get(`/nova-vendor/OneSignalNotificationHistory/notification-history-details/${this.notificationId}`)
             .then(response => {
+                console.log(response)
                 this.devices = response.data.devices;
             })
             .catch((error) => {
                 this.devices = [];
+                console.log(error)
                 alert("Something went wrong");
             });
     }

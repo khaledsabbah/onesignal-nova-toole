@@ -44,7 +44,7 @@ export default {
 
     methods: {
         async getData() {
-            const response = await fetch(`${process.env.MIX_ONE_SIGNAL_APP_URL}/notifications?app_id=${process.env.MIX_ONE_SIGNAL_APP_ID}&limit=50&offset=0&kind=0`, {
+            const response = await fetch(`https://onesignal.com/api/v1/notifications?app_id=${process.env.MIX_ONE_SIGNAL_APP_ID}&limit=50&offset=0&kind=0`, {
                 method: 'GET', // *GET, POST, PUT, DELETE, etc.
                 cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
                 headers: {
@@ -52,7 +52,7 @@ export default {
                     'Authorization' : `Basic ${process.env.MIX_ONE_SIGNAL_AUTHORIZATION_TOKEN}`,
                 },
             });
-        
+
             return await response; // parses JSON response into native JavaScript objects
         },
         formatDateFromTimestamp(timestamp){
