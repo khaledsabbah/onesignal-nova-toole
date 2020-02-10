@@ -23,7 +23,7 @@ class NotificationController extends Controller
      */
     public function historyDetails($id)
     {
-        $data = $this->post(config('constants.ONE_SIGNAL_APP_URL')."/notifications/$id/history",
+        $data = $this->post(config('constants.ONE_SIGNAL_APP_URL')."notifications/$id/history",
             [   'app_id' => config('constants.ONE_SIGNAL_APP_ID'),
                 'events' => 'clicked',
                 'email' => config('constants.ONE_SIGNAL_EXPORTED_MAIL'), 
