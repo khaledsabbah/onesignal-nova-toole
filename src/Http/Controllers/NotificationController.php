@@ -26,7 +26,7 @@ class NotificationController extends Controller
         $data = $this->post("https://app.onesignal.com/api/v1/notifications/$id/history");
         $players = [];
         
-        if (($handle = fopen($data['destination_url'], "r")) !== FALSE) {
+        if (isset($data['destination_url']) && ($handle = fopen($data['destination_url'], "r")) !== FALSE) {
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $players[$data[0]] = $data[1];
             }
@@ -34,7 +34,7 @@ class NotificationController extends Controller
         }
         
         $devices = OnesignalDevice::with('users:username,name')->whereIn('token',array_keys($players))->get();//->pluck('users.*.username','users.*.name');
-        return ['devices' => $devices];
+        return ['devices' => $devices, "data"=>$data];
     }
     /**
      * @param string   $path
