@@ -23,18 +23,16 @@ class NotificationController extends Controller
      */
     public function historyDetails($id)
     {
-        $data = $this->post("https://app.onesignal.com/api/v1/notifications/$id/history");
+        $history = $this->post("https://app.onesignal.com/api/v1/notifications/$id/history");
         $players = [];
-        
-        if (isset($data['destination_url']) && ($handle = fopen($data['destination_url'], "r")) !== FALSE) {
+        if (isset($history['destination_url']) && ($handle = fopen($history['destination_url'], "r")) !== FALSE) {
             while (($data = fgetcsv($handle)) !== FALSE) {
                 $players[$data[0]] = $data[1];
             }
             fclose($handle);
         }
-        
         $devices = OnesignalDevice::with('users:username,name')->whereIn('token',array_keys($players))->get();//->pluck('users.*.username','users.*.name');
-        return ['devices' => $devices, "data"=>$data];
+        return ['devices' => $devices,"players"=> $players, "notification_history"=>$history];
     }
     /**
      * @param string   $path
@@ -70,7 +68,7 @@ class NotificationController extends Controller
         curl_close($curl);
 
         if ($err) {
-            return ["destination_url" => ""];
+            return ["destination_url" => "", "error"=> $err];
         } else {
             return json_decode($response, true);
         }
